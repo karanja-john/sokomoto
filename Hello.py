@@ -63,9 +63,10 @@ if st.button("Forecast"):
     if selected_date <= max_forecast_date:
         forecasted_values = forecast_prices(selected_date, forecast_horizon)
         st.success(f"Dynamic price forecast for {selected_crop} starting from {selected_date} for the next {forecast_horizon} days:")
-        st.line_chart(pd.DataFrame({'Forecasted Prices': forecasted_values.flatten()}, index=pd.date_range(start=selected_date, periods=forecast_horizon))
+        st.line_chart(pd.DataFrame({'Forecasted Prices': forecasted_values.flatten()}, index=pd.date_range(start=selected_date, periods=forecast_horizon)))  # Fixed the missing parenthesis here
     else:
         st.warning(f"The selected date is outside the maximum forecast range. Please select a date within {max_forecast_date}.")
 
 # Optionally, add some explanations and descriptions here using st.write or st.markdown
+
 
