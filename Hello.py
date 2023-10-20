@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 import datetime
-from statsmodels.tsa.statespace.sarimax import SARIMAX
-from sklearn.preprocessing import MinMaxScaler
+
 
 # Set page configuration with the "Soko Smart Forecasts" title
 st.set_page_config(
