@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 import datetime
-
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from sklearn.preprocessing import MinMaxScaler
 
 # Set page configuration with the "Soko Smart Forecasts" title
 st.set_page_config(
@@ -11,8 +12,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Replace the data file path with the local path
-data_file_path =  "https://raw.githubusercontent.com/karanja-john/Food-prices-project/main/wfp_food_prices_kenunitprices.csv"
+# Load data from a remote URL
+data_file_path = "https://raw.githubusercontent.com/karanja-john/Food-prices-project/main/wfp_food_prices_kenunitprices.csv"
 data = pd.read_csv(data_file_path)
 
 # Convert the 'date' column to datetime
@@ -62,6 +63,9 @@ if st.button("Forecast"):
     if selected_date <= max_forecast_date:
         forecasted_values = forecast_prices(selected_date, forecast_horizon)
         st.success(f"Dynamic price forecast for {selected_crop} starting from {selected_date} for the next {forecast_horizon} days:")
-        st.line_chart(pd.DataFrame({'Forecasted Prices': forecasted_values.flatten()}, index=pd.date_range(start=selected_date, periods=forecast_horizon)))
+        st.line_chart(pd.DataFrame({'Forecasted Prices': forecasted_values.flatten()}, index=pd.date_range(start=selected_date, periods=forecast_horizon))
     else:
         st.warning(f"The selected date is outside the maximum forecast range. Please select a date within {max_forecast_date}.")
+
+# Optionally, add some explanations and descriptions here using st.write or st.markdown
+
